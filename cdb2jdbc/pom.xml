@@ -19,8 +19,9 @@ limitations under the License. -->
   <version>2.2.0</version>
   <packaging>jar</packaging>
   <properties>
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <env.skipTests>true</env.skipTests>
   </properties>
   <dependencies>
@@ -50,6 +51,7 @@ limitations under the License. -->
         <artifactId>protobuf-maven-plugin</artifactId>
         <version>0.5.0</version>
         <configuration>
+          <protocExecutable>/home/okosenkov/Downloads/protoc-3.2.0-linux-x86_64.exe</protocExecutable>
           <protoSourceRoot>${basedir}/../protobuf/</protoSourceRoot>
           <outputDirectory>${project.build.directory}/generated-sources/protobuf</outputDirectory>
         </configuration>

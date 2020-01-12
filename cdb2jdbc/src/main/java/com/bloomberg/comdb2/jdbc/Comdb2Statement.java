@@ -188,7 +188,7 @@ public class Comdb2Statement implements Statement {
 
     @Override
     public void setMaxFieldSize(int max) throws SQLException {
-        throw new SQLFeatureNotSupportedException();
+        FixThis.notSupported("setMaxFieldSize");
     }
 
     @Override
@@ -198,12 +198,12 @@ public class Comdb2Statement implements Statement {
 
     @Override
     public void setMaxRows(int max) throws SQLException {
-        throw new SQLFeatureNotSupportedException();
+        FixThis.notSupported("setMaxRows");
     }
 
     @Override
     public void setEscapeProcessing(boolean enable) throws SQLException {
-        throw new SQLFeatureNotSupportedException();
+        FixThis.notSupported("setEscapeProcessing");
     }
 
     @Override
@@ -222,7 +222,7 @@ public class Comdb2Statement implements Statement {
 
     @Override
     public void cancel() throws SQLException {
-        throw new SQLFeatureNotSupportedException();
+        FixThis.notSupported("cancel");
     }
 
     @Override
@@ -236,7 +236,7 @@ public class Comdb2Statement implements Statement {
 
     @Override
     public void setCursorName(String name) throws SQLException {
-        throw new SQLFeatureNotSupportedException();
+        FixThis.notSupported("setCursorName");
     }
 
     @Override
@@ -281,7 +281,7 @@ public class Comdb2Statement implements Statement {
 
     @Override
     public void setFetchDirection(int direction) throws SQLException {
-        throw new SQLFeatureNotSupportedException();
+        FixThis.notSupported("setFetchDirection");
     }
 
     @Override
@@ -310,7 +310,7 @@ public class Comdb2Statement implements Statement {
 
     @Override
     public void addBatch(String sql) throws SQLException {
-        throw new SQLFeatureNotSupportedException();
+        FixThis.notSupported("addBatch");
     }
 
     @Override
@@ -319,7 +319,8 @@ public class Comdb2Statement implements Statement {
 
     @Override
     public int[] executeBatch() throws SQLException {
-        throw new SQLFeatureNotSupportedException();
+        FixThis.notSupported("executeBatch");
+        return null;
     }
 
     @Override
@@ -334,7 +335,8 @@ public class Comdb2Statement implements Statement {
 
     @Override
     public ResultSet getGeneratedKeys() throws SQLException {
-        throw new SQLFeatureNotSupportedException();
+        FixThis.notSupported("getGeneratedKeys");
+        return null;
     }
 
     @Override
@@ -384,7 +386,7 @@ public class Comdb2Statement implements Statement {
 
     @Override
     public void setPoolable(boolean poolable) throws SQLException {
-        throw new SQLFeatureNotSupportedException();
+        FixThis.notSupported("setPoolable");
     }
 
     @Override
@@ -393,7 +395,7 @@ public class Comdb2Statement implements Statement {
     }
 
     public void closeOnCompletion() throws SQLException {
-        throw new SQLFeatureNotSupportedException();
+        FixThis.notSupported("closeOnCompletion");
     }
 
     public boolean isCloseOnCompletion() throws SQLException {

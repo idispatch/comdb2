@@ -444,7 +444,7 @@ public class Comdb2Connection implements Connection {
 
     @Override
     public void setCatalog(String catalog) throws SQLException {
-        throw new SQLFeatureNotSupportedException();
+        FixThis.notSupported("setCatalog: " + catalog);
     }
 
     @Override
@@ -662,7 +662,7 @@ public class Comdb2Connection implements Connection {
     }
 
     public String getSchema() throws SQLException {
-        return cluster;
+        return "";
     }
 
     public void abort(Executor executor) throws SQLException {
@@ -784,11 +784,10 @@ public class Comdb2Connection implements Connection {
                 _ex = new SQLException(msg, "COMDB", rc, ex);
                 break;
         }
-        return _ex; 
+        return FixThis.logException(_ex);
     }
 
     public void clearAck() {
         hndl.clearAck();
     }
 }
-/* vim: set sw=4 ts=4 et: */

@@ -1133,7 +1133,8 @@ public class Comdb2DatabaseMetaData implements DatabaseMetaData {
 
         ps = conn.prepareStatement(q.toString());
         ps.setString(1, conn.getDatabase());
-        ps.setString(2, conn.getCluster());
+        //ps.setString(2, ""/*conn.getCluster()*/);
+        ps.setNull(2, Types.CHAR);
         ps.setInt(3, DatabaseMetaData.procedureResultUnknown);
         if (procedureNamePattern != null)
             ps.setString(4, procedureNamePattern);
@@ -1189,7 +1190,8 @@ public class Comdb2DatabaseMetaData implements DatabaseMetaData {
             ps.close();
         ps = conn.prepareStatement(sql.toString());
         ps.setString(1, conn.getDatabase());
-        ps.setString(2, conn.getCluster());
+        //ps.setString(2, ""/*conn.getCluster()*/);
+        ps.setNull(2, Types.CHAR);
         ps.setString(3, tableNamePattern);
 
         return ps.executeQuery();
@@ -1199,7 +1201,8 @@ public class Comdb2DatabaseMetaData implements DatabaseMetaData {
         if (ps != null)
             ps.close();
         ps = conn.prepareStatement("select ? as TABLE_SCHEM, ? as TABLE_CATALOG");
-        ps.setString(1, conn.getCluster());
+        //ps.setString(1, ""/*conn.getCluster()*/);
+        ps.setNull(1, Types.CHAR);
         ps.setString(2, conn.getDatabase());
 
         return ps.executeQuery();
@@ -1380,7 +1383,7 @@ public class Comdb2DatabaseMetaData implements DatabaseMetaData {
                         allownull = "NO";
                     lh.beginRow(); // <--- begin a new row
                     lh.addString(conn.getDatabase());
-                    lh.addString(conn.getCluster());
+                    lh.addString(""/*conn.getCluster()*/);
                     lh.addString(name);
                     lh.addString(colname);
                     lh.addInteger(0L);
@@ -1515,7 +1518,8 @@ public class Comdb2DatabaseMetaData implements DatabaseMetaData {
             ps.close();
         ps = conn.prepareStatement(q.toString());
         ps.setString(1, conn.getDatabase());
-        ps.setString(2, conn.getCluster());
+        //ps.setString(2, ""/*conn.getCluster()*/);
+        ps.setNull(2, Types.CHAR);
         ps.setString(3, tableNamePattern != null ? tableNamePattern : "%");
         ps.setString(4, columnNamePattern != null ? columnNamePattern : "%");
 

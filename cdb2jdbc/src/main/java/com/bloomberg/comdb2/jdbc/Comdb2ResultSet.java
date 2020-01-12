@@ -19,7 +19,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.sql.Array;
 import java.sql.Blob;
 import java.sql.Clob;
@@ -201,7 +201,8 @@ public class Comdb2ResultSet implements ResultSet {
         try {
             return ba == null ? null : ba.toString();
         } catch (UnsupportedConversionException e) {
-            throw new SQLException(e);
+            FixThis.logException(e);
+            return "";//throw new SQLException(e);
         }
     }
 
@@ -211,7 +212,8 @@ public class Comdb2ResultSet implements ResultSet {
         try {
             return ba == null ? false : ba.toBool();
         } catch (UnsupportedConversionException e) {
-            throw new SQLException(e);
+            FixThis.logException(e);
+            return false;//throw new SQLException(e);
         }
     }
 
@@ -221,7 +223,8 @@ public class Comdb2ResultSet implements ResultSet {
         try {
             return (ba == null) ? 0 : (byte) ba.toLong();
         } catch (UnsupportedConversionException e) {
-            throw new SQLException(e);
+            FixThis.logException(e);
+            return 0;//throw new SQLException(e);
         }
     }
 
@@ -231,7 +234,8 @@ public class Comdb2ResultSet implements ResultSet {
         try {
             return (ba == null) ? 0 : (short) ba.toLong();
         } catch (UnsupportedConversionException e) {
-            throw new SQLException(e);
+            FixThis.log(e);
+            return 0;//throw new SQLException(e);
         }
     }
 
@@ -241,7 +245,8 @@ public class Comdb2ResultSet implements ResultSet {
         try {
             return (ba == null) ? 0 : (int) ba.toLong();
         } catch (UnsupportedConversionException e) {
-            throw new SQLException(e);
+            FixThis.logException(e);
+            return 0;///throw new SQLException(e);
         }
     }
 
@@ -251,7 +256,8 @@ public class Comdb2ResultSet implements ResultSet {
         try {
             return (ba == null) ? 0 : ba.toLong();
         } catch (UnsupportedConversionException e) {
-            throw new SQLException(e);
+            FixThis.logException(e);
+            return 0;//throw new SQLException(e);
         }
     }
 
@@ -261,7 +267,8 @@ public class Comdb2ResultSet implements ResultSet {
         try {
             return (ba == null) ? 0 : (float) ba.toDouble();
         } catch (UnsupportedConversionException e) {
-            throw new SQLException(e);
+            FixThis.log(e);
+            return 0;//throw new SQLException(e);
         }
     }
 
@@ -271,23 +278,26 @@ public class Comdb2ResultSet implements ResultSet {
         try {
             return (ba == null) ? 0 : ba.toDouble();
         } catch (UnsupportedConversionException e) {
-            throw new SQLException(e);
+            FixThis.logException(e);
+            return 0;//throw new SQLException(e);
         }
     }
 
     @Override
     public BigDecimal getBigDecimal(int columnIndex, int scale) throws SQLException {
         ByteArray ba = getByteArray(columnIndex);
-        if (ba == null)
-            return null;
-
+        if (ba == null) {
+            FixThis.log("BigDecimal getBigDecimal 1");
+            return BigDecimal.ZERO;
+        }
         try {
             String str = ba.toString();
             BigDecimal dec = new BigDecimal(str);
             dec.setScale(scale);
             return dec;
         } catch (UnsupportedConversionException e) {
-            throw new SQLException(e);
+            FixThis.logException(e);
+            return BigDecimal.ZERO;//throw new SQLException(e);
         }
     }
 
@@ -297,7 +307,8 @@ public class Comdb2ResultSet implements ResultSet {
         try {
             return (ba == null) ? null : ba.toBytes();
         } catch (UnsupportedConversionException e) {
-            throw new SQLException(e);
+            FixThis.logException(e);
+            return null;//throw new SQLException(e);
         }
     }
 
@@ -388,7 +399,7 @@ public class Comdb2ResultSet implements ResultSet {
         byte[] barr = getBytes(columnIndex);
         if (barr == null)
             return null;
-        return new ByteArrayInputStream(Charset.forName("ISO-Latin-1").encode(new String(barr)).array());
+        return new ByteArrayInputStream(StandardCharsets.ISO_8859_1.encode(new String(barr)).array());
     }
 
     @Override
@@ -396,7 +407,7 @@ public class Comdb2ResultSet implements ResultSet {
         byte[] barr = getBytes(columnIndex);
         if (barr == null)
             return null;
-        return new ByteArrayInputStream(Charset.forName("UTF-16").encode(new String(barr)).array());
+        return new ByteArrayInputStream(StandardCharsets.UTF_16.encode(new String(barr)).array());
     }
 
     @Override
@@ -549,7 +560,8 @@ public class Comdb2ResultSet implements ResultSet {
         try {
             return (ba == null) ? null : new BigDecimal(ba.toString());
         } catch (UnsupportedConversionException e) {
-            throw new SQLException(e);
+            FixThis.logException(e);
+            return BigDecimal.ZERO;//throw new SQLException(e);
         }
     }
 
@@ -575,26 +587,31 @@ public class Comdb2ResultSet implements ResultSet {
 
     @Override
     public boolean isLast() throws SQLException {
-        throw new SQLFeatureNotSupportedException();
+        FixThis.log("isLast");
+        return false;//throw new SQLFeatureNotSupportedException();
     }
 
     @Override
     public void beforeFirst() throws SQLException {
+        FixThis.log("beforeFirst");
         throw new SQLException("The method should not be called on a TYPE_FORWARD_ONLY resultset");
     }
 
     @Override
     public void afterLast() throws SQLException {
+        FixThis.log("afterLast");
         throw new SQLException("The method should not be called on a TYPE_FORWARD_ONLY resultset");
     }
 
     @Override
     public boolean first() throws SQLException {
+        FixThis.log("first");
         throw new SQLException("The method should not be called on a TYPE_FORWARD_ONLY resultset");
     }
 
     @Override
     public boolean last() throws SQLException {
+        FixThis.log("last");
         throw new SQLException("The method should not be called on a TYPE_FORWARD_ONLY resultset");
     }
 
@@ -605,23 +622,28 @@ public class Comdb2ResultSet implements ResultSet {
 
     @Override
     public boolean absolute(int row) throws SQLException {
+        FixThis.log("absolute");
         throw new SQLException("The method should not be called on a TYPE_FORWARD_ONLY resultset");
     }
 
     @Override
     public boolean relative(int rows) throws SQLException {
+        FixThis.log("relative");
         throw new SQLException("The method should not be called on a TYPE_FORWARD_ONLY resultset");
     }
 
     @Override
     public boolean previous() throws SQLException {
+        FixThis.log("previous");
         throw new SQLException("The method should not be called on a TYPE_FORWARD_ONLY resultset");
     }
 
     @Override
     public void setFetchDirection(int direction) throws SQLException {
-        if (direction != ResultSet.FETCH_FORWARD)
+        if (direction != ResultSet.FETCH_FORWARD) {
+            FixThis.log("setFetchDirection");
             throw new SQLException("The fetch direction of a TYPE_FORWARD_ONLY resultset can only be set to FETCH_FORWARD");
+        }
     }
 
     @Override
@@ -631,11 +653,13 @@ public class Comdb2ResultSet implements ResultSet {
 
     @Override
     public void setFetchSize(int rows) throws SQLException {
+        FixThis.log("setFetchSize");
         throw new SQLFeatureNotSupportedException();
     }
 
     @Override
     public int getFetchSize() throws SQLException {
+        FixThis.log("getFetchSize");
         throw new SQLFeatureNotSupportedException();
     }
 
